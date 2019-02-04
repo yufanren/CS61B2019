@@ -68,6 +68,11 @@ public class Planet {
 		xxPos += dt * xxVel;
 		yyPos += dt * yyVel;
 	}
+	/** Draw planet itself on the background. */
+	public void draw() {
+		StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
+		StdDraw.show();
+	}
 
 }
 
