@@ -71,7 +71,6 @@ public class Planet {
 	/** Draw planet itself on the background. */
 	public void draw() {
 		StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
-		StdDraw.show();
 	}
 
 }
