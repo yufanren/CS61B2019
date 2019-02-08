@@ -85,9 +85,8 @@ public class ArrayDeque<T> {
     public boolean isEmpty() {
         if (size == 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /** Get list item and print. */
@@ -120,7 +119,7 @@ public class ArrayDeque<T> {
 
     private int minusOne(int i) {
         if (i == 0) {
-            return items.length -1;
+            return items.length - 1;
         } else {
             return i - 1;
         }
@@ -142,17 +141,4 @@ public class ArrayDeque<T> {
         start = 0;
         end = size - 1;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
