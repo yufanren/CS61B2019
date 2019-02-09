@@ -1,21 +1,15 @@
 public class ArrayDeque<T> {
-    T[] items;
-    int size;
-    int start;
-    int end;
+    private T[] items;
+    private int size;
+    private int start;
+    private int end;
 
     /** Create new list. */
     public ArrayDeque() {
-        T[] items = (T[]) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
-    }
-
-    public ArrayDeque(T[] input) {
-        T[] items = (T[]) new Object[input.length * 2];
-        size = input.length;
-        System.arraycopy(input, 0, items, 0, input.length);
         start = 0;
-        end = input.length - 1;
+        end = 0;
     }
 
     /** Add to array. */
@@ -58,9 +52,9 @@ public class ArrayDeque<T> {
             T temp = items[start];
             items[start] = null;
             start = plusOne(start);
+            size -= 1;
             return temp;
         }
-
     }
 
     public T removeLast() {
@@ -73,6 +67,7 @@ public class ArrayDeque<T> {
             T temp = items[end];
             items[end] = null;
             end = minusOne(end);
+            size -= 1;
             return temp;
         }
     }
@@ -91,16 +86,16 @@ public class ArrayDeque<T> {
 
     /** Get list item and print. */
     public T get(int index) {
-        if (index + size > items.length) {
-            return items[index + size - 1 - items.length];
+        if (index + start >= items.length) {
+            return items[index + start - 1 - items.length];
         } else {
-            return items[index + size];
+            return items[index + start];
         }
     }
 
     public void printDeque() {
         String printout = new String();
-        for (int i = start; i != plusOne(end); i = plusOne(i)) {
+        for (int i = start; i != end; i = plusOne(i)) {
             printout += String.valueOf(items[i]);
             printout += " ";
         }
@@ -128,7 +123,12 @@ public class ArrayDeque<T> {
     /** Resize the array into desired factor. */
     private void expand() {
         T[] temp = (T[]) new Object[items.length * 2];
-        System.arraycopy(items, start, temp, 0, size);
+        if (start > end) {
+            System.arraycopy(items, start, temp, 0, items.length - start);
+            System.arraycopy(items, 0, temp, items.length - start, size + start - items.length);
+        } else {
+            System.arraycopy(items, start, temp, 0, size);
+        }
         items = temp;
         start = 0;
         end = size - 1;
@@ -136,7 +136,12 @@ public class ArrayDeque<T> {
 
     private void contract() {
         T[] temp = (T[]) new Object[items.length / 2];
-        System.arraycopy(items, start, temp, 0, size);
+        if (start > end) {
+            System.arraycopy(items, start, temp, 0, items.length - start);
+            System.arraycopy(items, 0, temp, items.length - start, size + start - items.length);
+        } else {
+            System.arraycopy(items, start, temp, 0, size);
+        }
         items = temp;
         start = 0;
         end = size - 1;
