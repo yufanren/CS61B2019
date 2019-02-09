@@ -135,6 +135,9 @@ public class ArrayDeque<T> {
     }
 
     private void contract() {
+        if (items.length <= 15) {
+            return;
+        }
         T[] temp = (T[]) new Object[items.length / 2];
         if (start > end) {
             System.arraycopy(items, start, temp, 0, items.length - start);
