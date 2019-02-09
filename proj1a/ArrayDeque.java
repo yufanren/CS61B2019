@@ -87,7 +87,7 @@ public class ArrayDeque<T> {
     /** Get list item and print. */
     public T get(int index) {
         if (index + start >= items.length) {
-            return items[index + start - 1 - items.length];
+            return items[index + start - items.length];
         } else {
             return items[index + start];
         }
