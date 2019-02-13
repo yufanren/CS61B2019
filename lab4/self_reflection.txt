@@ -4,27 +4,27 @@ ArrayDeque:
 
 Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
 
-A: 
+A: None
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: Wrote it myself.
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: None
 
 Q: What did you learn by talking to your partner about writing ArrayDeque?
 
-A:
+A: I had no partner
 
 Q: What do you wish you would have known before writing ArrayDeque, if anything?
 
-A:
+A: I just followed instructions.
 
 Q: If you wrote ArrayDeque again, what would you do differently, if anything?
 
-A:
+A: Still the same.
 
 -----
 
@@ -60,4 +60,4 @@ Meta:
 
 Q: Did you like this design review process? Anything we should do differently next time?
 
-A: 
+A: No.
