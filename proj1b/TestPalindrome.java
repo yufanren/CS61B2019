@@ -8,7 +8,7 @@ public class TestPalindrome {
 
     @Test
     public void testWordToDeque() {
-        Deque d = Palindrome.wordToDeque("persiflage");
+        Deque d = palindrome.wordToDeque("persiflage");
         String actual = "";
         for (int i = 0; i < "persiflage".length(); i++) {
             actual += d.removeFirst();
@@ -18,18 +18,18 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome() {
-        assertFalse(Palindrome.isPalindrome("whale"));
-        assertTrue(Palindrome.isPalindrome("xanax"));
-        assertTrue(Palindrome.isPalindrome("g"));
-        assertTrue(Palindrome.isPalindrome(""));
+        assertFalse(palindrome.isPalindrome("whale"));
+        assertTrue(palindrome.isPalindrome("xanax"));
+        assertTrue(palindrome.isPalindrome("g"));
+        assertTrue(palindrome.isPalindrome(""));
     }
 
     @Test
     public void testIsPalindrome2() {
         OffByOne comp = new OffByOne();
-        assertFalse(Palindrome.isPalindrome("tweak", comp));
-        assertTrue(Palindrome.isPalindrome("flake", comp));
-        assertTrue(Palindrome.isPalindrome("t", comp));
-        assertTrue(Palindrome.isPalindrome("", comp));
+        assertFalse(palindrome.isPalindrome("tweak", comp));
+        assertTrue(palindrome.isPalindrome("flake", comp));
+        assertTrue(palindrome.isPalindrome("t", comp));
+        assertTrue(palindrome.isPalindrome("", comp));
     }
 }

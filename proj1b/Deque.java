@@ -14,5 +14,6 @@ public interface Deque<T> {
 
     void printDeque();
 
+    boolean isEmpty();
 }
 
