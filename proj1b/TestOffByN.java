@@ -5,11 +5,11 @@ public class TestOffByN {
 
     @Test
     public void testOffByN() {
-        OffByN OffByFour = new OffByN(4);
-        assertTrue(OffByFour.equalChars('b', 'f'));
-        assertTrue(OffByFour.equalChars('f', 'b'));
-        assertTrue(OffByFour.equalChars('x', 't'));
-        assertFalse(OffByFour.equalChars('s', 's'));
-        assertFalse(OffByFour.equalChars('z', 'Z'));
+        OffByN offbyFour = new OffByN(4);
+        assertTrue(offbyFour.equalChars('b', 'f'));
+        assertTrue(offbyFour.equalChars('f', 'b'));
+        assertTrue(offbyFour.equalChars('x', 't'));
+        assertFalse(offbyFour.equalChars('s', 's'));
+        assertFalse(offbyFour.equalChars('z', 'Z'));
     }
 }
