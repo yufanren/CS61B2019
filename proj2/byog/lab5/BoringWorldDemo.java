@@ -30,6 +30,11 @@ public class BoringWorldDemo {
                 world[x][y] = Tileset.WALL;
             }
         }
+        for (int x = 21; x < 34; x += 1) {
+            for (int y = 6; y < 9; y += 1) {
+                world[x][y] = Tileset.MOUNTAIN;
+            }
+        }
 
         // draws the world to the screen
         ter.renderFrame(world);

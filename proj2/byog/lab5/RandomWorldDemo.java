@@ -10,10 +10,10 @@ import java.util.Random;
  * Draws a world that contains RANDOM tiles.
  */
 public class RandomWorldDemo {
-    private static final int WIDTH = 50;
+    private static final int WIDTH = 75;
     private static final int HEIGHT = 50;
 
-    private static final long SEED = 2873123;
+    private static final long SEED = 669470;
     private static final Random RANDOM = new Random(SEED);
 
     /**
@@ -37,10 +37,10 @@ public class RandomWorldDemo {
     private static TETile randomTile() {
         int tileNum = RANDOM.nextInt(3);
         switch (tileNum) {
-            case 0: return Tileset.WALL;
-            case 1: return Tileset.FLOWER;
-            case 2: return Tileset.NOTHING;
-            default: return Tileset.NOTHING;
+            case 0: return Tileset.GRASS;
+            case 1: return Tileset.WATER;
+            case 2: return Tileset.SAND;
+            default: return Tileset.GRASS;
         }
     }
 
