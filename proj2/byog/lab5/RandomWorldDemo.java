@@ -10,8 +10,8 @@ import java.util.Random;
  * Draws a world that contains RANDOM tiles.
  */
 public class RandomWorldDemo {
-    private static final int WIDTH = 75;
-    private static final int HEIGHT = 50;
+    private static final int WIDTH = 80;
+    private static final int HEIGHT = 40;
 
     private static final long SEED = 669470;
     private static final Random RANDOM = new Random(SEED);

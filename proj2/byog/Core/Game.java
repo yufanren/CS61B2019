@@ -1,7 +1,7 @@
 package byog.Core;
 
-import byog.TileEngine.TERenderer;
-import byog.TileEngine.TETile;
+import byog.TileEngine.*;
+import java.util.LinkedList;
 
 public class Game {
     TERenderer ter = new TERenderer();
@@ -28,11 +28,62 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
+        TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
 
-        TETile[][] finalWorldFrame = null;
+        LinkedList<String> QUEUE = new LinkedList();
+        for (int i = 0; i < input.length(); i += 1) {
+            QUEUE.add(String.valueOf(input.charAt(i)));
+        }
+        long SEED = processString(QUEUE);
+        if (SEED == 0) {
+            for (int i = 0; i < WIDTH; i += 1) {
+                for (int j = 0; j < HEIGHT; j += 1) {
+                    finalWorldFrame[i][j] = Tileset.NOTHING;
+                }
+            }
+        } else {
+            MapGen Generator = new MapGen(finalWorldFrame, SEED, WIDTH, HEIGHT);
+            finalWorldFrame = Generator.Generate();
+        }
         return finalWorldFrame;
+    }
+
+    private long processString(LinkedList input) {
+        if (input.size() == 0) {
+            return processSeed(input);
+        }
+        while (input.size() > 0) {
+            String c = (String) input.remove();
+            if (c.equals("N") || c.equals("n")) {
+                return processSeed(input);
+            } else {
+                return processString(input);
+            }
+        }
+        return 0;
+    }
+
+    private long processSeed(LinkedList QUEUE) {
+        long SEED = 0;
+        long n;
+        if (QUEUE.size() == 0) {
+            return SEED;
+        }
+        while (QUEUE.size() > 0) {
+            String c = (String) QUEUE.remove();
+            if (c.equals("S") || c.equals("s")) {
+                return SEED;
+            } else {
+                try {
+                    n = Long.parseLong(c);
+                } catch (NumberFormatException e) {
+                    continue;
+                }
+                SEED = SEED * 10 + n;
+            }
+        }
+        return 0;
     }
 }
