@@ -10,7 +10,7 @@ import java.util.Random;
 
 import static byog.TileEngine.Tileset.PLAYER;
 
-class Game {
+public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     private static final int WIDTH = 80;
