@@ -19,7 +19,7 @@ public class Game {
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
-    void playWithKeyboard() {
+    public void playWithKeyboard() {
         Play game = new Play(WIDTH, HEIGHT);
         game.startPlay();
     }
@@ -36,7 +36,7 @@ public class Game {
      * @param input the input string to feed to your program
      * @return the 2D TETile[][] representing the state of the world
      */
-    TETile[][] playWithInputString(String input) {
+    public TETile[][] playWithInputString(String input) {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
