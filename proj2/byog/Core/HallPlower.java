@@ -1,10 +1,11 @@
 package byog.Core;
 
+import java.io.Serializable;
 import java.util.*;
 
 import byog.TileEngine.*;
 
-class HallPlower {
+class HallPlower implements Serializable {
 
     //protected Room START;
 
@@ -23,7 +24,7 @@ class HallPlower {
 
         passAssign(WORLD.ROOMS);
         LinkedList<Room> unlinkedRooms = new LinkedList<Room>(WORLD.ROOMS);
-        LinkedList<Room> linkedRooms = new LinkedList();
+        LinkedList<Room> linkedRooms = new LinkedList<Room>();
         connectRoom(unlinkedRooms, linkedRooms, unlinkedRooms.get(0), unlinkedRooms.get(RandomUtils.uniform(WORLD.RANDOM, 1, roomRemain(unlinkedRooms))));
     }
     /*Connect all rooms in the unlinked rooms list. */

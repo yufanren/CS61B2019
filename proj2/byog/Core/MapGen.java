@@ -1,12 +1,13 @@
 package byog.Core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import byog.TileEngine.*;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-class MapGen {
+class MapGen implements Serializable {
 
     final Random RANDOM;
 
@@ -16,20 +17,20 @@ class MapGen {
 
     TETile[][] MAP;
 
-    HashSet<Position> POSITIONS = new HashSet();
+    HashSet<Position> POSITIONS = new HashSet<Position>();
 
     LinkedList<Room> ROOMS;
 
-    ArrayList<Position> WALLS = new ArrayList();
+    ArrayList<Position> WALLS = new ArrayList<>();
 
-    ArrayList<Position> DOORS = new ArrayList();
+    private ArrayList<Position> DOORS = new ArrayList<>();
 
-    MapGen(TETile[][] world, long seed, int width, int height) {
+    MapGen(TETile[][] world, Random random, int width, int height) {
 
         MAP = world;
         WIDTH = width;
         HEIGHT = height;
-        RANDOM = new Random(seed);
+        RANDOM = random;
     }
 
     TETile[][] Generate() {
@@ -51,7 +52,7 @@ class MapGen {
 
     // Generate a list of rooms. Place down the tiles.
     private void roomGen() {
-        ROOMS = new LinkedList();
+        ROOMS = new LinkedList<>();
 
         placeBRoom(RandomUtils.uniform(RANDOM, 6, 8));
         placeRoom(RandomUtils.uniform(RANDOM, 24, 27));
@@ -139,11 +140,11 @@ class MapGen {
     }
 
     // This main method is for testing only.
-    /*
+/*
    public static void main(String[] args) {
         int w = 80;
         int h = 30;
-        long seed = 11936;
+        long seed = 119360;
         TERenderer ter = new TERenderer();
         ter.initialize(w, h);
         TETile[][] world = new TETile[w][h];

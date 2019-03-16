@@ -1,9 +1,10 @@
 package byog.Core;
 
 import byog.TileEngine.*;
-import java.util.ArrayList;
 
-class Wall {
+import java.io.Serializable;
+
+class Wall implements Serializable {
 
     private MapGen WORLD;
 

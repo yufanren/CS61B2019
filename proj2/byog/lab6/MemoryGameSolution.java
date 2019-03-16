@@ -48,6 +48,7 @@ public class MemoryGameSolution {
         playerTurn = false;
         round = 1;
 
+
         while (!gameOver) {
             playerTurn = false;
             drawFrame("Round " + round + "! Good luck!");

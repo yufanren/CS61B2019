@@ -54,8 +54,6 @@ public class MemoryGame {
     }
 
     public void drawFrame(String s) {
-        //TODO: Take the string and display it in the center of the screen
-        //TODO: If game is not over, display relevant game information at the top of the screen
         StdDraw.clear();
         if (!gameOver) {
             StdDraw.setFont(new Font("Monaco", Font.BOLD, 15));
@@ -68,7 +66,6 @@ public class MemoryGame {
     }
 
     public void flashSequence(String letters) {
-        //TODO: Display each character in letters, making sure to blank the screen between letters
         for (int i = 0; i < letters.length(); i += 1) {
             drawFrame(String.valueOf(letters.charAt(i)));
             StdDraw.pause(1000);
@@ -78,7 +75,6 @@ public class MemoryGame {
     }
 
     public String solicitNCharsInput(int n) {
-        //TODO: Read n letters of player input
         String s = "";
         drawFrame(s);
         for (int i = n; i > 0; i -= 1) {
@@ -95,7 +91,6 @@ public class MemoryGame {
     }
 
     public void startGame() {
-        //TODO: Set any relevant variables before the game starts
         round = 1;
         gameOver = false;
         playerTurn = false;
@@ -118,8 +113,5 @@ public class MemoryGame {
                 drawFrame("The best you can do is round " + round + ", Pathetic!");
             }
         }
-
-        //TODO: Establish Game loop
     }
-
 }

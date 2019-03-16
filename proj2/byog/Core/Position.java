@@ -2,7 +2,9 @@ package byog.Core;
 
 /* the position class includes x and y position of a tile in grid. */
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
 
     int Px;
 

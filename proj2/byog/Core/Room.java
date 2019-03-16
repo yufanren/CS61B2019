@@ -1,9 +1,10 @@
 package byog.Core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /* a Room object with the lower left tile of the room, width, height and all tiles in the room. */
 
-public class Room {
+public class Room implements Serializable {
     //public TETile[][] WORLD;
 
     private Position llCorner;
