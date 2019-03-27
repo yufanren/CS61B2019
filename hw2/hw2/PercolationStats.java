@@ -2,7 +2,6 @@ package hw2;
 
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
-import java.lang.Math;
 
 public class PercolationStats {
 
@@ -16,13 +15,14 @@ public class PercolationStats {
     public PercolationStats(int N, int T, PercolationFactory pf) {
 
         if (N <= 0 || T <= 0) {
-            throw new IllegalArgumentException("Grid axis and number of experiments must be greater than zero!");
+            throw new IllegalArgumentException("N and T must be greater than zero!");
         }
         sLength = N;
         // Perform a series of random experiments.
         double[] sResults = new double[T];
         for (int i = 0; i < T; i += 1) {
             sResults[i] = randomExp(pf);
+            System.out.println(sResults[i]);
         }
         // Calculate desired results.
         sMean = StdStats.mean(sResults);
@@ -31,13 +31,14 @@ public class PercolationStats {
         confHigh = sMean + (1.96 * stdDev / (Math.sqrt(T)));
     }
 
-    /* Perform a random experiment and return ratio of open sites to total sites when percolation occur. */
-    private int randomExp(PercolationFactory pf) {
+    /* Perform a random experiment and return ratio of open sites to total sites
+    when percolation occur. */
+    private double randomExp(PercolationFactory pf) {
         Percolation pRandom = pf.make(sLength);
         while (!pRandom.percolates()) {
             openRandom(pRandom);
         }
-        return pRandom.numberOfOpenSites() / ( sLength * sLength );
+        return (double) pRandom.numberOfOpenSites() / (double) (sLength * sLength);
     }
 
     /* Open a random node in Percolation object. */

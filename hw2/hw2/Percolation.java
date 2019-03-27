@@ -31,11 +31,6 @@ public class Percolation {
         pList2 = new WeightedQuickUnionUF(N * N + 1);
         pTop = N * N;
         pBottom = N * N + 1;
-        for (int i = 0; i < pLength; i += 1) {
-            pList1.union(pTop, i);
-            pList2.union(pTop, i);
-            pList1.union(pBottom, N * N - i - 1);
-        }
     }
 
     /* Check if percolates. */
@@ -70,6 +65,7 @@ public class Percolation {
         nodeConnect(pNode, row + 1, col);
         nodeConnect(pNode, row, col - 1);
         nodeConnect(pNode, row, col + 1);
+        checkTopBottom(row, col);
     }
 
     /* Check if the position is open or closed. */
@@ -80,9 +76,22 @@ public class Percolation {
         return pTron[row][col];
     }
 
+    /* If node being opened is at top or bottom of grid,
+    connect it to the top/bottom virtual node. */
+    private void checkTopBottom(int row, int col) {
+        int pPos = xyToNum(row, col);
+        if (pPos < pLength) {
+            pList1.union(pPos, pTop);
+            pList2.union(pPos, pTop);
+        }
+        if (pPos >= pLength * pLength - pLength) {
+            pList1.union(pPos, pBottom);
+        }
+    }
+
     /* Connect if the node exist on the grid. */
     private void nodeConnect(int node, int row, int col) {
-        if ( nodeValidate(row, col) && pTron[row][col]) {
+        if (nodeValidate(row, col) && pTron[row][col]) {
             pList1.union(node, xyToNum(row, col));
             pList2.union(node, xyToNum(row, col));
         }
@@ -96,5 +105,13 @@ public class Percolation {
     /* Convert xy coordination to a number, and vice versa. */
     private int xyToNum(int x, int y) {
         return x * pLength + y;
+    }
+
+    public static void main(String[] args) {
+        PercolationStats pStats = new PercolationStats(3, 10, new PercolationFactory());
+        System.out.println(pStats.mean());
+        System.out.println(pStats.stddev());
+        System.out.println(pStats.confidenceLow());
+        System.out.println(pStats.confidenceHigh());
     }
 }
