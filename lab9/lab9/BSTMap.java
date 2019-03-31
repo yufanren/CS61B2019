@@ -44,7 +44,16 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      *  or null if this map contains no mapping for the key.
      */
     private V getHelper(K key, Node p) {
-        throw new UnsupportedOperationException();
+        if (p == null) {
+            return null;
+        }
+        if (key.compareTo(p.key) == 0) {
+            return p.value;
+        } else if (key.compareTo(p.key) < 0) {
+            return getHelper(key, p.left);
+        } else {
+            return getHelper(key, p.right);
+        }
     }
 
     /** Returns the value to which the specified key is mapped, or null if this
@@ -52,14 +61,34 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (root == null) {
+            return null;
+        }
+        if (key.compareTo(root.key) == 0) {
+            return root.value;
+        } else if (key.compareTo(root.key) < 0) {
+            return getHelper(key, root.left);
+        } else {
+            return getHelper(key, root.right);
+        }
     }
 
     /** Returns a BSTMap rooted in p with (KEY, VALUE) added as a key-value mapping.
       * Or if p is null, it returns a one node BSTMap containing (KEY, VALUE).
      */
     private Node putHelper(K key, V value, Node p) {
-        throw new UnsupportedOperationException();
+        if (p == null) {
+            p = new Node(key, value);
+            size += 1;
+            return p;
+        } else if (key.compareTo(p.key) == 0) {
+            p.value = value;
+            return p;
+        } else if (key.compareTo(p.key) < 0) {
+            return putHelper(key, value, p.left);
+        } else {
+            return putHelper(key, value, p.right);
+        }
     }
 
     /** Inserts the key KEY
@@ -67,14 +96,25 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (root == null) {
+            root = new Node(key, value);
+            size += 1;
+        } else if (key.compareTo(root.key) == 0) {
+            root.value = value;
+        } else if (key.compareTo(root.key) < 0) {
+            root.left = putHelper(key, value, root.left);
+        } else {
+            root.right = putHelper(key, value, root.right);
+        }
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
+
+
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
 
