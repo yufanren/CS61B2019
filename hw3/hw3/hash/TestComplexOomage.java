@@ -41,7 +41,7 @@ public class TestComplexOomage {
             List<Integer> list = new ArrayList<>();
             int L = StdRandom.uniform(1, 10);
             for (int j = 0; j < L; j += 1) {
-                list.add((int) Math.pow(2, StdRandom.uniform(2, 8)));
+                list.add(StdRandom.uniform(0, 255));
             }
             for (int k = 0; k < 4; k += 1) {
                 list.add(0);
