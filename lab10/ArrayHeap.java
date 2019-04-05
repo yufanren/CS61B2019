@@ -265,7 +265,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             throw new IllegalArgumentException("Cannot sink or swim nodes with index 0 or less");
         }
         if (index > size) {
-            String s = "Cannot sink or swim nodes with index greater than current size.";
+            String s = "sink/swim called on " + String.valueOf(index) + ", size is " + String.valueOf(size) + ".";
             throw new IllegalArgumentException(s);
         }
         if (contents[index] == null) {
