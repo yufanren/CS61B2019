@@ -178,10 +178,15 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
+        if (size == 0) {
+            return null;
+        }
         swap(1, size);
+        T item = contents[size].myItem;
+        contents[size] = null;
         size -= 1;
         sink(1);
-        return contents[size + 1].myItem;
+        return item;
     }
 
     /**
