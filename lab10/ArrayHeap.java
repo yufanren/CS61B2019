@@ -109,7 +109,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             return;
         }
         if (min(index, pIndex) == index) {
-            swap(index, parentIndex(index));
+            swap(index, pIndex);
             swim(pIndex);
         }
     }
@@ -124,9 +124,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         int lindex = leftIndex(index);
         int rindex = rightIndex(index);
         if (!inBounds(rindex)) {
-            if (!inBounds(lindex)) {
-                return;
-            } else if (min(index, lindex) == lindex) {
+            if (min(index, lindex) == lindex) {
                 swap(index, lindex);
                 sink(lindex);
             }
@@ -155,8 +153,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (size + 1 == contents.length) {
             resize(contents.length * 2);
         }
-        contents[size + 1] = new Node(item, priority);
         size += 1;
+        contents[size] = new Node(item, priority);
         swim(size);
     }
 
