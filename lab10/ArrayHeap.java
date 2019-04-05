@@ -123,22 +123,22 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         int lindex = leftIndex(index);
         int rindex = rightIndex(index);
-        if (!inBounds(rindex)) {
-            if (min(index, lindex) == lindex) {
-                swap(index, lindex);
-                sink(lindex);
-            }
-        } else {
+        if (inBounds(rindex)) {
             if (min(lindex, rindex) == lindex) {
-                if (min(index, lindex) == lindex) {
+                if (min(lindex, index) == lindex) {
                     swap(index, lindex);
                     sink(lindex);
                 }
             } else {
-                if (min(rindex, rindex) == rindex) {
+                if (min(rindex, index) == rindex) {
                     swap(index, rindex);
                     sink(rindex);
                 }
+            }
+        } else if (inBounds(lindex)) {
+            if (min(lindex, index) == lindex) {
+                swap(index, lindex);
+                sink(lindex);
             }
         }
     }
