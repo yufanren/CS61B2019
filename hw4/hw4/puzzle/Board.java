@@ -47,7 +47,7 @@ public class Board implements WorldState {
     /* Manhattan estimation of steps to goal from current state. */
     public int manhattan() {
         int man = 0;
-        for (int i = 0; i < N * N; i += 1) {
+        for (int i = 1; i < N * N; i += 1) {
             int row = oneToRow(i);
             int col = oneToCol(i);
             int num = tileAt(row, col);
@@ -59,7 +59,7 @@ public class Board implements WorldState {
     /* Hamming estimation of steps to goal from current state. */
     public int hamming() {
         int ham = 0;
-        for (int i = 0; i < N * N; i += 1) {
+        for (int i = 1; i < N * N; i += 1) {
             if (tileAt(oneToRow(i), oneToCol(i)) != i) {
                 ham += 1;
             }
@@ -117,29 +117,21 @@ public class Board implements WorldState {
     }
     /* Convert 1D numbers to 2D board position. */
     private int oneToRow(int i) {
-        if (i == 0) {
-            return N - 1;
-        } else {
-            return (i - 1) / N;
-        }
+        return (i - 1) / N;
     }
 
     private int oneToCol(int i) {
-        if (i == 0) {
-            return N - 1;
-        } else {
-            return (i - 1) % N;
-        }
+        return (i - 1) % N;
     }
 
     /** Returns the string representation of the board. 
       * Uncomment this method. */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        int N = size();
-        s.append(String.valueOf(N) + "\n");
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+        int nN = size();
+        s.append(String.valueOf(nN) + "\n");
+        for (int i = 0; i < nN; i++) {
+            for (int j = 0; j < nN; j++) {
                 s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
