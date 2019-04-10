@@ -47,10 +47,13 @@ public class Board implements WorldState {
     /* Manhattan estimation of steps to goal from current state. */
     public int manhattan() {
         int man = 0;
-        for (int i = 1; i < N * N; i += 1) {
+        for (int i = 1; i <= N * N; i += 1) {
             int row = oneToRow(i);
             int col = oneToCol(i);
             int num = tileAt(row, col);
+            if (num == 0) {
+                continue;
+            }
             man += Math.abs(row - oneToRow(num)) + Math.abs(col - oneToCol(num));
         }
         return man;

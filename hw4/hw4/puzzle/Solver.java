@@ -47,23 +47,6 @@ public class Solver {
         return wsList;
     }
 
-    /* Recursive structure to solve puzzle.
-    private void solvePuzzle() {
-        if (wsQueue.isEmpty()) {
-            return;
-        }
-        SearchNode snNext = wsQueue.delMin();
-        if (snNext.snState.isGoal()) {
-            theGoal = snNext;
-            return;
-        }
-        for (WorldState X:snNext.snState.neighbors()) {
-            if (snNext.snPrevious == null || !X.equals(snNext.snPrevious.snState)) {
-                wsQueue.insert(new SearchNode(X, snNext.nMoves + 1, snNext));
-            }
-        }
-        solvePuzzle();
-    }
     /* Iterative structure to solve puzzle. */
     private void solvePuzzle1() {
         while (!wsQueue.isEmpty()) {
