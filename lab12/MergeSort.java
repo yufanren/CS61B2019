@@ -40,6 +40,9 @@ public class MergeSort {
             t.enqueue(i);
             list.enqueue(t);
         }
+        if (list.size() == 0) {
+            list.enqueue(new Queue<Item>());
+        }
         return list;
     }
 
@@ -73,7 +76,7 @@ public class MergeSort {
 
     private static <Item extends Comparable> Queue<Queue<Item>> sortHelper(
             Queue<Queue<Item>> items) {
-        if (items.size() == 1) {
+        if (items.size() <= 1) {
             return items;
         }
         Queue<Queue<Item>> list = new Queue<>();
