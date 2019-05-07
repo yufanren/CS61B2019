@@ -1,8 +1,11 @@
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import java.util.PriorityQueue;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Objects;
 /**
  * This class provides a shortestPath method for finding routes between two points
  * on the map. Start by using Dijkstra's, and if your code isn't fast enough for your
@@ -25,8 +28,68 @@ public class Router {
      */
     public static List<Long> shortestPath(GraphDB g, double stlon, double stlat,
                                           double destlon, double destlat) {
-        return null; // FIXME
+        long start = g.closest(stlon, stlat);
+        long goal = g.closest(destlon, destlat);
+        Router R = new Router();
+        return R.pathFinder(g, start, goal);
     }
+
+    private Router() {
+    }
+    /* Look for a shortest path from a starting point to goal. */
+    private LinkedList<Long> pathFinder(GraphDB g, long start, long goal) {
+        PriorityQueue<SearchNode> searchPool = new PriorityQueue<>();
+        HashSet<Long> searched = new HashSet<>();
+        searchPool.add(new SearchNode(start, 0, null));
+        while (!searchPool.isEmpty()) {
+            SearchNode snNext = searchPool.poll();
+            if (snNext.snCurrent == goal) {
+                return snNext.getPath();
+            } else {
+                searched.add(snNext.snCurrent);
+                for (long adj:g.adjacent(snNext.snCurrent)) {
+                    if (!searched.contains(adj)) {
+                        SearchNode n = new SearchNode(adj, snNext.totalDistance
+                                + g.getDistance(adj, snNext.snCurrent), snNext);
+                        n.snPriority = n.totalDistance + g.distance(n.snCurrent, goal);
+                        searchPool.add(n);
+                    }
+                }
+            }
+        }
+        return new LinkedList<Long>();
+    }
+
+    /* A search node class for storing nodes and search progress. */
+    private class SearchNode implements Comparable {
+        long snCurrent;
+        double totalDistance;
+        SearchNode snPrevious;
+        double snPriority;
+
+        private SearchNode(long current, double distance, SearchNode previous) {
+            snCurrent = current;
+            totalDistance = distance;
+            snPrevious = previous;
+        }
+
+        private LinkedList<Long> getPath() {
+            LinkedList<Long> pathList = new LinkedList<>();
+            pathList.add(this.snCurrent);
+            SearchNode n = this;
+            while (n.snPrevious != null) {
+                n = n.snPrevious;
+                pathList.addFirst(n.snCurrent);
+            }
+            return pathList;
+        }
+
+        public int compareTo(Object other) {
+            SearchNode otherNode = (SearchNode) other;
+            return Double.compare(snPriority, otherNode.snPriority);
+        }
+    }
+
 
     /**
      * Create the list of directions corresponding to a route on the graph.

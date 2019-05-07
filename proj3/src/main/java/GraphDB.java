@@ -7,6 +7,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Graph for storing all of the intersection (vertex) and road (edge) information.
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 public class GraphDB {
     /** Your instance variables for storing the graph. You should consider
      * creating helper classes, e.g. Node, Edge, etc. */
-
+    private Map<Long, Node> nodeList = new HashMap<>();
     /**
      * Example constructor shows how to create and start an XML parser.
      * You do not need to modify this constructor, but you're welcome to do so.
@@ -57,7 +59,15 @@ public class GraphDB {
      *  we can reasonably assume this since typically roads are connected.
      */
     private void clean() {
-        // TODO: Your code here.
+        ArrayList<Long> recycleBin = new ArrayList<>();
+        for (Long key:nodeList.keySet()) {
+            if ((nodeList.get(key).adjacent).isEmpty()) {
+                recycleBin.add(key);
+            }
+        }
+        for (Long key:recycleBin) {
+            nodeList.remove(key);
+        }
     }
 
     /**
@@ -65,8 +75,7 @@ public class GraphDB {
      * @return An iterable of id's of all vertices in the graph.
      */
     Iterable<Long> vertices() {
-        //YOUR CODE HERE, this currently returns only an empty list.
-        return new ArrayList<Long>();
+        return nodeList.keySet();
     }
 
     /**
@@ -75,7 +84,13 @@ public class GraphDB {
      * @return An iterable of the ids of the neighbors of v.
      */
     Iterable<Long> adjacent(long v) {
-        return null;
+        Long id = v;
+        HashMap<Long, Edge> adjList = nodeList.get(id).adjacent;
+        ArrayList<Long> list = new ArrayList<>();
+        for (Long key:adjList.keySet()) {
+            list.add(key);
+        }
+        return list;
     }
 
     /**
@@ -136,7 +151,17 @@ public class GraphDB {
      * @return The id of the node in the graph closest to the target.
      */
     long closest(double lon, double lat) {
-        return 0;
+        double minDistance = Double.MAX_VALUE;
+        long closest = -1;
+        for (Long key:nodeList.keySet()) {
+            Node x = nodeList.get(key);
+            double distance = distance(lon, lat, x.nodeLon, x.nodeLat);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closest = x.nodeId;
+            }
+        }
+        return closest;
     }
 
     /**
@@ -145,7 +170,8 @@ public class GraphDB {
      * @return The longitude of the vertex.
      */
     double lon(long v) {
-        return 0;
+        Long longitude = v;
+        return nodeList.get(longitude).nodeLon;
     }
 
     /**
@@ -154,6 +180,58 @@ public class GraphDB {
      * @return The latitude of the vertex.
      */
     double lat(long v) {
-        return 0;
+        Long latitude = v;
+        return nodeList.get(latitude).nodeLat;
+    }
+
+    /* add a node to the graph. */
+    void addNode(Node n) {
+        this.nodeList.put(n.nodeId, n);
+    }
+
+    /* remove a node from graph. */
+    void removeNode(Node n) {
+        this.nodeList.remove(n);
+    }
+
+    /* add a edge to the graph. */
+    void addEdge(Node a, Node b, double dist) {
+        a.adjacent.put(b.nodeId, new Edge(b, dist));
+        b.adjacent.put(a.nodeId, new Edge(a, dist));
+    }
+
+    void addEdge(long a, long b, double dist) {
+        addEdge(nodeList.get(a), nodeList.get(b), dist);
+    }
+
+    void addName(long node, String name) {
+        nodeList.get(node).name = name;
+    }
+
+    double getDistance(long a, long b) {
+        return nodeList.get(a).adjacent.get(b).distance;
+    }
+
+    static class Node {
+        long nodeId;
+        double nodeLat;
+        double nodeLon;
+        String name;
+        HashMap<Long, Edge> adjacent;
+        Node(String id, String lat, String lon) {
+            nodeId = Long.valueOf(id);
+            nodeLat = Double.valueOf(lat);
+            nodeLon = Double.valueOf(lon);
+            adjacent = new HashMap<Long, Edge>();
+        }
+    }
+
+    class Edge {
+        Node toNode;
+        double distance;
+        Edge(Node node, double w) {
+            toNode = node;
+            distance = w;
+        }
     }
 }

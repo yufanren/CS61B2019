@@ -56,12 +56,12 @@ public class Rasterer {
         double l = Math.pow(2, depth);
         long length = (long) l;
         String[][] grid = getFiles(depth, length, params);
+        results.put("render_grid", grid);
         if (grid[0].length == 0) {
             results.put("query_success", false);
         } else {
             results.put("query_success", true);
         }
-        results.put("render_grid", grid);
         results.put("raster_ul_lon", calAxis(uLLon, length, MapServer.ROOT_ULLON,
                 MapServer.ROOT_LRLON));
         results.put("raster_lr_lon", calAxis(lRLon, length, MapServer.ROOT_ULLON,
@@ -118,7 +118,7 @@ public class Rasterer {
     /* Convert bounds to a list of valid numbers for locating files. */
     private LinkedList<Integer> boundToList(Integer[] bounds, long length) {
         LinkedList<Integer> list = new LinkedList<>();
-        for (int i = bounds[0]; i <= bounds[1]; i += 1) {
+        for (int i = bounds[0]; i <= bounds[1];   i += 1) {
             if (i >= 0 && i <= length) {
                 list.add(i);
             }
