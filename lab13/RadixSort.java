@@ -30,7 +30,7 @@ public class RadixSort {
         }
         //Perform sorting on the array by each digit of String.
         for (int i = length - 1; i >= 0; i -= 1) {
-            sortHelperLSD(sort, i);
+            sort = sortHelperLSD(sort, i);
         }
         //Unpad Strings on the array.
         for (int i = 0; i < sort.length; i += 1) {
@@ -62,7 +62,7 @@ public class RadixSort {
      * @param asciis Input array of Strings
      * @param index The position to sort the Strings on.
      */
-    private static void sortHelperLSD(String[] asciis, int index) {
+    private static String[] sortHelperLSD(String[] asciis, int index) {
         int[] counts = new int[256];
         for (String s:asciis) {
             char nu = s.charAt(index);
@@ -82,7 +82,7 @@ public class RadixSort {
             sorted[starts[nu]] = asciis[i];
             starts[nu] += 1;
         }
-        asciis = sorted;
+        return sorted;
     }
 
     /**
@@ -98,5 +98,19 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] s = new String[6];
+        s[0] = "zalaldar";
+        s[1] = "ass";
+        s[2] = "shquirt";
+        s[3] = "derp";
+        s[4] = "shmeagle";
+        s[5] = "as";
+        String[] sorted = sort(s);
+        for (String i:sorted) {
+            System.out.print(i + " ");
+        }
     }
 }
